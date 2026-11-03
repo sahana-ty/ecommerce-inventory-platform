@@ -1,37 +1,48 @@
 package com.ecommerce.store_backend.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 import java.math.BigDecimal;
 
 @Entity
-@Table(name = "products")
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
+@Table(name = "PRODUCTS")
 public class Product {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "product_id")
-    private Long productId;
+	@Id
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "prod_seq")
+	@SequenceGenerator(name = "prod_seq", sequenceName = "PRODUCTS_SEQ", allocationSize = 1)
+	private Long id;
 
-    @Column(nullable = false, length = 150)
+    @Column(nullable = false)
     private String name;
 
-    @Column(length = 500)
     private String description;
 
-    @Column(nullable = false, precision = 10, scale = 2)
+    @Column(nullable = false)
     private BigDecimal price;
 
-    @Column(name = "stock_quantity", nullable = false)
+    @Column(nullable = false)
     private Integer stockQuantity;
 
-    // Many products belong to one category
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "category_id", nullable = false)
+    @ManyToOne
+    @JoinColumn(name = "category_id")
     private Category category;
+
+    // Getters and Setters
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
+
+    public String getName() { return name; }
+    public void setName(String name) { this.name = name; }
+
+    public String getDescription() { return description; }
+    public void setDescription(String description) { this.description = description; }
+
+    public BigDecimal getPrice() { return price; }
+    public void setPrice(BigDecimal price) { this.price = price; }
+
+    public Integer getStockQuantity() { return stockQuantity; }
+    public void setStockQuantity(Integer stockQuantity) { this.stockQuantity = stockQuantity; }
+
+    public Category getCategory() { return category; }
+    public void setCategory(Category category) { this.category = category; }
 }
