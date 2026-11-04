@@ -9,10 +9,10 @@ import java.util.List;
 @Table(name = "CARTS")
 public class Cart {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "cart_seq")
-    @SequenceGenerator(name = "cart_seq", sequenceName = "CARTS_SEQ", allocationSize = 1)
-    private Long id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "order_seq")
+	@SequenceGenerator(name = "order_seq", sequenceName = "ORDERS_SEQ", allocationSize = 1)
+	private Long id;
 
     @OneToOne
     @JoinColumn(name = "user_id", nullable = false)
